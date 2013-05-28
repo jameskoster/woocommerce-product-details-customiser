@@ -43,19 +43,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 						'id' 		=> 'wc_pdc_options'
 					),
 					array(
-						'title' 	=> __( 'Related Products / Upsells Columns', 'woocommerce-product-details-customiser' ),
-						'desc'		=> __( 'The number of columns that related products / upsells are arranged in to on product detail pages', 'woocommerce-product-details-customiser' ),
-						'id' 		=> 'wc_pdc_columns',
-						'default'	=> '2',
-						'type' 		=> 'select',
-						'options' 	=> array(
-							'2'  	=> __( '2', 'woocommerce-product-details-customiser' ),
-							'3' 	=> __( '3', 'woocommerce-product-details-customiser' ),
-							'4' 	=> __( '4', 'woocommerce-product-details-customiser' ),
-							'5' 	=> __( '5', 'woocommerce-product-details-customiser' )
-						)
-					),
-					array(
 						'name' 		=> __( 'Display', 'woocommerce-product-details-customiser' ),
 						'desc' 		=> __( 'Product Images', 'woocommerce-product-details-customiser' ),
 						'id' 		=> 'wc_pdc_product_images',
@@ -80,7 +67,19 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 						'type' 		=> 'checkbox',
 						'default'	=> 'yes'
 					),
-
+					array(
+						'title' 	=> __( 'Related Products / Upsells Columns', 'woocommerce-product-details-customiser' ),
+						'desc'		=> __( 'The number of columns that related products / upsells are arranged in to on product detail pages', 'woocommerce-product-details-customiser' ),
+						'id' 		=> 'wc_pdc_columns',
+						'default'	=> '2',
+						'type' 		=> 'select',
+						'options' 	=> array(
+							'2'  	=> __( '2', 'woocommerce-product-details-customiser' ),
+							'3' 	=> __( '3', 'woocommerce-product-details-customiser' ),
+							'4' 	=> __( '4', 'woocommerce-product-details-customiser' ),
+							'5' 	=> __( '5', 'woocommerce-product-details-customiser' )
+						)
+					),
 					array( 'type' => 'sectionend', 'id' => 'wc_pdc_options' ),
 				);
 
@@ -95,6 +94,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				// Admin
 				add_action( 'woocommerce_settings_catalog_options_after', array( $this, 'admin_settings' ), 21);
 				add_action( 'woocommerce_update_options_catalog', array( $this, 'save_admin_settings' ) );
+				add_action( 'admin_enqueue_scripts', array( &$this, 'wc_pdc_admin_scripts' ) );
 
 				// Frontend
 				add_action( 'init', array( $this, 'wc_pdc_fire_customisations' ) );
@@ -116,6 +116,19 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			// Save the settings
 			function save_admin_settings() {
 				woocommerce_update_options( $this->settings );
+			}
+
+			// Admin scripts
+			function wc_pdc_admin_scripts() {
+				$screen       = get_current_screen();
+			    $wc_screen_id = strtolower( __( 'WooCommerce', 'woocommerce' ) );
+
+			    // WooCommerce admin pages
+			    if ( in_array( $screen->id, apply_filters( 'woocommerce_screen_ids', array( 'toplevel_page_' . $wc_screen_id, $wc_screen_id . '_page_woocommerce_settings' ) ) ) ) {
+
+			    	wp_enqueue_script( 'wc-pdc-script', plugins_url( '/assets/js/script.min.js', __FILE__ ) );
+
+			    }
 			}
 
 			// Setup styles

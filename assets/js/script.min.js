@@ -1,0 +1,1 @@
+(function(e){jQuery(document).ready(function(e){jQuery("input#wc_pdc_related, input#wc_pdc_upsells").change(function(){jQuery("input#wc_pdc_related, input#wc_pdc_upsells").is(":checked")?jQuery("input#wc_pdc_related").parents(":eq(3)").next().show():jQuery("input#wc_pdc_related").parents(":eq(3)").next().hide()}).change()})})(jQuery);
