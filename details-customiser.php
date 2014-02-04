@@ -2,10 +2,10 @@
 /*
 Plugin Name: WooCommerce Product Details Customiser
 Plugin URI: http://jameskoster.co.uk/tag/product-details-customiser/
-Version: 0.1
+Version: 0.2.0
 Description: Allows you to customise WooCommerce product details pages. Show / Hide core components like product imagery, tabs, upsells and related products.
 Author: jameskoster
-Tested up to: 3.6
+Tested up to: 3.8.1
 Author URI: http://jameskoster.co.uk
 Text Domain: woocommerce-product-details-customiser
 Domain Path: /languages/
@@ -92,9 +92,10 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				add_option( 'wc_pdc_tabs', 'yes' );
 
 				// Admin
-				add_action( 'woocommerce_settings_catalog_options_after', array( $this, 'admin_settings' ), 21);
+				add_action( 'woocommerce_settings_catalog_options_after', array( $this, 'admin_settings' ), 21 );
 				add_action( 'woocommerce_update_options_catalog', array( $this, 'save_admin_settings' ) );
-				add_action( 'admin_enqueue_scripts', array( &$this, 'wc_pdc_admin_scripts' ) );
+				add_action( 'woocommerce_update_options_products', array( $this, 'save_admin_settings' ) );
+				add_action( 'admin_enqueue_scripts', array( $this, 'wc_pdc_admin_scripts' ) );
 
 				// Frontend
 				add_action( 'init', array( $this, 'wc_pdc_fire_customisations' ) );

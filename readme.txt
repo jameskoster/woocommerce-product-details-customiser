@@ -2,8 +2,8 @@
 Contributors: jameskoster
 Tags: woocommerce, ecommerce, products
 Requires at least: 3.5
-Tested up to: 3.6
-Stable tag: 0.1
+Tested up to: 3.8.1
+Stable tag: 0.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,6 +33,9 @@ If your theme has been integrated with WooCommerce it is possibly already adding
 1. The Product Details Customiser Settings.
 
 == Changelog ==
+
+= 0.2.0 =
+WooCommerce 2.1 compatibility.
 
 = 0.1 =
 Initial release.
