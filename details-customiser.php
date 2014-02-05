@@ -134,7 +134,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 			// Setup styles
 			function wc_pdc_styles() {
-				wp_enqueue_style( 'pdc-layout-styles', plugins_url( '/assets/css/layout.css', __FILE__ ) );
+				wp_enqueue_style( 'pac-layout-styles', plugins_url( '/assets/css/layout.css', __FILE__ ), '', '', 'only screen and (min-width: ' . apply_filters( 'woocommerce_style_smallscreen_breakpoint', $breakpoint = '768px' ) . ')' );
 			}
 
 			// Fire customisations!
