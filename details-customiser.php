@@ -134,7 +134,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 			// Setup styles
 			function wc_pdc_styles() {
-				wp_enqueue_style( 'pac-layout-styles', plugins_url( '/assets/css/layout.css', __FILE__ ), '', '', 'only screen and (min-width: ' . apply_filters( 'woocommerce_style_smallscreen_breakpoint', $breakpoint = '768px' ) . ')' );
+				wp_enqueue_style( 'pdc-layout-styles', plugins_url( '/assets/css/layout.css', __FILE__ ), '', '', 'only screen and (min-width: ' . apply_filters( 'woocommerce_style_smallscreen_breakpoint', $breakpoint = '768px' ) . ')' );
 			}
 
 			// Fire customisations!
@@ -201,7 +201,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			function woocommerce_pdc_related_products() {
 				$columns 	= get_option( 'wc_pdc_columns' );
 				$args = array(
-					'posts_per_page' => $columns,
+					'posts_per_page' => apply_filters( 'woocommerce_pdc_related_products_per_page', $columns ),
 					'columns'        => $columns,
 				);
 				return $args;
