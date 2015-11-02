@@ -78,8 +78,18 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 							'3' 	=> __( '3', 'woocommerce-product-details-customiser' ),
 							'4' 	=> __( '4', 'woocommerce-product-details-customiser' ),
 							'5' 	=> __( '5', 'woocommerce-product-details-customiser' )
-						)
+						),
 					),
+						array(
+							'title' 	=> __( 'Add to cart redirect page', 'woocommerce-product-details-customiser' ),
+							'id' 		=> 'wc_pdc_redirect_page',
+							'type'     => 'single_select_page',
+							'default'  => '',
+							'class'    => 'wc-enhanced-select-nostd',
+							'css'      => 'min-width:300px;',
+							'desc_tip' => __( 'If you activate "redirect to cart", you can define her the destination page.', 'woocommerce' ),
+						),
+
 					array( 'type' => 'sectionend', 'id' => 'wc_pdc_options' ),
 				);
 
@@ -90,6 +100,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				add_option( 'wc_pdc_upsells', 'yes' );
 				add_option( 'wc_pdc_related', 'yes' );
 				add_option( 'wc_pdc_tabs', 'yes' );
+				add_option( 'wc_pdc_redirect_page', '' );
 
 				// Admin
 				add_action( 'woocommerce_settings_catalog_options_after', array( $this, 'admin_settings' ), 21 );
@@ -166,6 +177,9 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				if ( get_option( 'wc_pdc_tabs' ) == 'no' ) {
 					remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
 				}
+
+				// Redirect url
+				add_filter( 'woocommerce_add_to_cart_redirect', array( $this, 'woocommerce_pdc_redirect_page') );
 			}
 
 
@@ -205,6 +219,12 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					'columns'        => $columns,
 				);
 				return $args;
+			}
+
+			// Redirect add to cart
+			function woocommerce_pdc_redirect_page() {
+				$page 	= get_permalink(get_option( 'wc_pdc_redirect_page' ));
+				return $page;
 			}
 		}
 
